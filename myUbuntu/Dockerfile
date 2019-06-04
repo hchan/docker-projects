@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.10
 WORKDIR /app
 RUN apt-get update && apt-get install -y \
     net-tools \
@@ -10,7 +10,12 @@ RUN apt-get update && apt-get install -y \
     openssl \
     vim \
     openssh-server \
-    telnet
+    telnet \
+    git
+
+ENV TZ=Canada/Pacific
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get install -y x11vnc
 
 RUN mkdir /var/run/sshd
 RUN echo 'root:abc123' | chpasswd
@@ -30,8 +35,11 @@ ADD id_rsa /root/.ssh/id_rsa
 ADD id_rsa.pub /root/.ssh/authorized_keys
 RUN chmod 700 /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/authorized_keys
-RUN  echo "IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config
+RUN echo "IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config
+RUN     mkdir ~/.vnc
+RUN x11vnc -storepasswd abc123 ~/.vnc/passwd
 
 EXPOSE 22222:22
-
+COPY ./docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/usr/sbin/sshd", "-D"]
