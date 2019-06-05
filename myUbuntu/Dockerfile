@@ -7,11 +7,14 @@ RUN apt-get update && apt-get install -y \
     npm \
     perl \
     python \
+    default-jdk \
     openssl \
     vim \
     openssh-server \
     telnet \
-    git
+    git \
+    tofrodos \
+    jq
 
 ENV TZ=Canada/Pacific
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -55,5 +58,6 @@ EXPOSE 22222:22
 # vnc
 EXPOSE 25901:5901
 COPY ./docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
-# CMD ["/usr/sbin/sshd", "-D"]
+RUN dos2unix /docker-entrypoint.sh
+#ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/usr/sbin/sshd", "-D"]
