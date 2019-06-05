@@ -4,15 +4,16 @@
 * you must have an `id_rsa` and `id_rsa.pub` in this dir to begin with
     * i.e. `cp ~/.ssh/id_rsa* .`
 
-# Runnning
+## Runnning
 * ./runMyUbuntu.sh
 
-# Logging in with SSH
+## Logging in with SSH
 * ./runSSH.sh
 
-# VNC
+## VNC
 * open your vnc-viewer to localhost:25901
+    * password is `abc123`
 
-# Killing
+## Killing
 * ./dockerKillAll.sh
 
