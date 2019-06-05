@@ -15,7 +15,9 @@ RUN apt-get update && apt-get install -y \
 
 ENV TZ=Canada/Pacific
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apt-get install -y x11vnc
+RUN apt-get install -y vnc4server xvfb
+#RUN apt-get install -y ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal gnome-core
+RUN apt-get install -y xfce4 xfce4-goodies
 
 RUN mkdir /var/run/sshd
 RUN echo 'root:abc123' | chpasswd
@@ -36,10 +38,19 @@ ADD id_rsa.pub /root/.ssh/authorized_keys
 RUN chmod 700 /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/authorized_keys
 RUN echo "IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config
-RUN     mkdir ~/.vnc
-RUN x11vnc -storepasswd abc123 ~/.vnc/passwd
 
+# VNC
+RUN mkdir ~/.vnc
+COPY ./passwd /root/.vnc
+RUN chmod 755 /root/.vnc
+RUN chmod 600 /root/.vnc/passwd
+COPY ./xstartup /root/.vnc
+RUN chmod 755 /root/.vnc/xstartup
+
+# ssh
 EXPOSE 22222:22
+# vnc
+EXPOSE 25901:5901
 COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["/usr/sbin/sshd", "-D"]
+# CMD ["/usr/sbin/sshd", "-D"]
