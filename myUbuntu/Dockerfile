@@ -2,18 +2,18 @@ FROM ubuntu:18.10
 WORKDIR /app
 RUN apt-get update && apt-get install -y \
     net-tools \
-    curl \
+    curl wget \
     nodejs \
     npm \
     perl \
-    python \
-    default-jdk \
+    python3 \
+    default-jdk maven \
     openssl \
-    vim \
+    vim nano \
     openssh-server \
     telnet \
     git \
-    tofrodos \
+    tofrodos dos2unix \
     jq
 
 ENV TZ=Canada/Pacific
@@ -59,5 +59,5 @@ EXPOSE 22222:22
 EXPOSE 25901:5901
 COPY ./docker-entrypoint.sh /
 RUN dos2unix /docker-entrypoint.sh
-#ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
+#CMD ["/usr/sbin/sshd", "-D"]

@@ -6,5 +6,5 @@ export XFCE_PANEL_MIGRATE_DEFAULT=true
 xfce4-session &
 # sets the default to xfce4-terminal
 echo 2 | update-alternatives --config x-terminal-emulator
-xfce4-terminal &
+# xfce4-terminal &
 /usr/sbin/sshd -D
