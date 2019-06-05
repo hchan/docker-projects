@@ -39,13 +39,16 @@ RUN chmod 700 /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/authorized_keys
 RUN echo "IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config
 
+# .profile
+RUN echo "export DISPLAY=\$(hostname):1" >> /root/.profile
+
 # VNC
 RUN mkdir ~/.vnc
 COPY ./passwd /root/.vnc
 RUN chmod 755 /root/.vnc
 RUN chmod 600 /root/.vnc/passwd
-COPY ./xstartup /root/.vnc
-RUN chmod 755 /root/.vnc/xstartup
+# COPY ./xstartup /root/.vnc
+# RUN chmod 755 /root/.vnc/xstartup
 
 # ssh
 EXPOSE 22222:22
