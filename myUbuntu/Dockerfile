@@ -53,6 +53,9 @@ RUN chmod 600 /root/.vnc/passwd
 # COPY ./xstartup /root/.vnc
 # RUN chmod 755 /root/.vnc/xstartup
 
+
+COPY ./.gitconfig /root
+
 # ssh
 EXPOSE 22222:22
 # vnc

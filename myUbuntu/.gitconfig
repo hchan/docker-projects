@@ -1,0 +1,5 @@
+[user]
+	email = hchan@apache.org
+	name = Henry Chan
+[core]
+	editor = vim
