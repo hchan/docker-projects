@@ -1,5 +1,6 @@
 FROM ubuntu:18.10
 WORKDIR /app
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     net-tools \
     curl wget \
@@ -23,7 +24,6 @@ RUN apt-get install -y vnc4server xvfb
 #RUN apt-get install -y ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal gnome-core
 RUN apt-get install -y xfce4 xfce4-goodies
 
-COPY ./keyboard /etc/default/keyboard
 RUN apt-get install -y locales
 RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
