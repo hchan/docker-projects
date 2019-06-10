@@ -24,6 +24,10 @@ RUN apt-get install -y vnc4server xvfb
 #RUN apt-get install -y ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal gnome-core
 RUN apt-get install -y xfce4 xfce4-goodies
 
+# Install Chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
+
 RUN apt-get install -y locales
 RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
