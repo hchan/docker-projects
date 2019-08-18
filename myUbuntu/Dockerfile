@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     npm \
     perl \
     python3 \
-    default-jdk maven \
+    default-jdk maven gradle \
     openssl \
     vim nano \
     openssh-server \
