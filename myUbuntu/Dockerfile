@@ -2,7 +2,7 @@ FROM ubuntu:18.10
 WORKDIR /app
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
-    net-tools \
+    net-tools nginx \
     iputils-ping \
     curl wget \
     nodejs \
