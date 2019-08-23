@@ -9,4 +9,7 @@ xhost +
 echo 2 | update-alternatives --config x-terminal-emulator
 # xfce4-terminal &
 xfce4-terminal --maximize &
+
+#
+service nginx start
 /usr/sbin/sshd -D
