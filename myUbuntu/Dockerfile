@@ -2,7 +2,7 @@ FROM ubuntu:18.10
 WORKDIR /app
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
-    net-tools nginx \
+    net-tools nginx socat iptables netcat \
     iputils-ping \
     curl wget \
     nodejs \
@@ -100,6 +100,9 @@ RUN echo "toor    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 EXPOSE 22222:22
 # vnc
 EXPOSE 25901:5901
+# nginx (see docker-entrypoint.sh for port forwarding)
+EXPOSE 18888:18888
+
 COPY ./docker-entrypoint.sh /
 RUN dos2unix /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
